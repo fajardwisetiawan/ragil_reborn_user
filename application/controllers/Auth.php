@@ -17,20 +17,20 @@ class Auth extends CI_Controller
         $username   = $this->input->post('username', true);
         $password   = md5($this->input->post('password', true));
 
-        $getAdmin = $this->db
-                ->get_where("m_admin", [
+        $getUser = $this->db
+                ->get_where("m_user", [
                     "username"  => $username,
                     "password"  => $password,
                 ])
                 ->row();
         
-        if ($getAdmin) {
+        if ($getUser) {
             $userData = [
-                "id"        => $getAdmin->id,
-                "username"  => $getAdmin->username,
-                "nama"      => $getAdmin->nama,
-                "email"     => $getAdmin->email,
-                "telepon"   => $getAdmin->telepon,
+                "id"        => $getUser->id,
+                "username"  => $getUser->username,
+                "nama"      => $getUser->nama,
+                "email"     => $getUser->email,
+                "telepon"   => $getUser->telepon,
                 "status"    => "LOGIN",
             ];
             $this->session->set_userdata($userData);

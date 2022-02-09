@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Dashboard extends CI_Controller
+class Kontak extends CI_Controller
 {
     public function __construct()
     {
@@ -10,20 +10,20 @@ class Dashboard extends CI_Controller
             $this->load->view('auth/login');
         }
 
-        $this->load->model("dashboard_model");
+        $this->load->model("kontak_model");
     }
 
     public function index()
     {
         $data = [
             "app_name"  => "TOKO RAGIL 2 REBORN",
-            "title"     => strtoupper(str_replace("_", " ", $this->router->fetch_class())),
-            "produk"    => $this->dashboard_model->getAll(),
+            "title"     => ucwords(str_replace("_", " ", $this->router->fetch_class())),
+            "toko"      => $this->kontak_model->getAll(),
         ];
 
         $this->load->view("component/header", $data);
         $this->load->view("component/sidebar", $data);
-        $this->load->view("dashboard/index", $data);
+        $this->load->view("master/kontak/index", $data);
         $this->load->view("component/footer", $data);
     }
 }

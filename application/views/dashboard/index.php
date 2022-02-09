@@ -1,19 +1,22 @@
 <div class="content-wrapper">
-    <div class="content-header">
-        <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-sm-6">
-                    <h1 class="m-0 text-dark">Dashboard</h1>
+    <div class="row text-center m-3">
+        <?php foreach ($produk as $p) { ?>
+            <div class="card ml-3" style="width: 16rem;">
+                <img src="<?= 'http://localhost/ragil_reborn_admin/images/' . $p->gambar ?>" class="card-img-top">
+                <div class="card-body">
+                    <h5 class="text-center mb-0"><?= $p->nama  ?></h5>
+                    <small><?= substr($p->deskripsi, 0, 50) . "..." ?></small>
+                    <br>
+                    <span class="badge badge-pill badge-danger"><?= $p->jenis_barang ?></span>
+                    <span class="badge badge-pill badge-success mb-2">Rp. <?= number_format($p->harga,2) ?></span>
+                    <br>
+                    <?php if ($p->jenis_barang == "READY") { ?>
+                        <a href="<?= base_url('transaksi/detail/detail_ready/') . $p->id . '/' . $p->jenis_barang ?>" class="btn btn-sm btn-info">DETAIL</a>
+                    <?php } else { ?>
+                        <a href="<?= base_url('transaksi/detail/detail_preorder/') . $p->id . '/' . $p->jenis_barang ?>" class="btn btn-sm btn-info">DETAIL</a>
+                    <?php } ?>
                 </div>
             </div>
-        </div>
+        <?php } ?>
     </div>
-    <section class="content">
-        <div class="container-fluid">
-            <div class="row mt-2" style="display: grid;height: 100%;">
-                <h3 class="mt-3" style="font-weight: bold; margin: auto; color: black;">TOKO RAGIL 2 REBORN</h3>
-                <h4 class="" style="font-weight: bold; margin: auto; color: black;">ADMINISTRATOR</h4>
-            </div>
-        </div>
-    </section>
 </div>

@@ -76,7 +76,7 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                         <div class="dropdown-divider"></div>
-                        <a href="<?= base_url("auth/logout") ?>" class="dropdown-item">
+                        <a href="<?= base_url("auth/logout_proses") ?>" class="dropdown-item">
                             <i class="fas fa-power-off mr-2"></i> Keluar
                         </a>
                     </div>
