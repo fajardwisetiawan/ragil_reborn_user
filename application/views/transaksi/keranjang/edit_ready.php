@@ -6,7 +6,7 @@
                     <div class="col-12 col-sm-6">
                         <h3 class="d-inline-block d-sm-none"><?= $detail->nama_produk  ?></h3>
                         <div class="col-12">
-                            <img src="<?= base_url('images/') . $detail->gambar ?>" class="product-image" alt="Product Image">
+                            <img src="<?= 'http://localhost/ragil_reborn_admin/images/' . $detail->gambar ?>" class="product-image" alt="Product Image">
                         </div>
                     </div>
                     <div class="col-12 col-sm-6">
@@ -87,7 +87,7 @@
     function pilih_ukuran(id) {
         $.ajax({
             type: "POST",
-            url: "<?= base_url('transaksi/detail/getStok') ?>",
+            url: "<?= base_url('transaksi/keranjang/getStok') ?>",
             data: {
                 "id": id
             },

@@ -32,6 +32,13 @@
 
         <div class="container-fluid">
             <div class="card">
+                <div class="card-header">
+                    <?php if (count($keranjang) > 0) { ?>
+                        <a href="<?= base_url('transaksi/keranjang/checkout') ?>" class="btn btn-sm btn-info float-right" title="Checkout"><i class="fas fa-shopping-cart"></i> Checkout</a>
+                    <?php } else { ?>
+                        <button type="button" class="btn btn-sm btn-danger float-right" title="Checkout" id="checkout_kosong"><i class="fas fa-shopping-cart"></i> Checkout</button>
+                    <?php } ?>
+                </div>
                 <div class="card-body table-responsive">
                     <table id="table_data" class="table nowrap table-bordered table-striped">
                         <thead>
@@ -128,4 +135,12 @@
             }
         });
     }
+
+    $("#checkout_kosong").click(function() {
+        Swal.fire(
+            "Oops",
+            "Keranjang anda masih kosong, silakan pilih barang-barang menarik kami terlebih dahulu",
+            "error"
+        );
+    });
 </script>

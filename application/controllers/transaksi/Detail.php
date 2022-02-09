@@ -7,10 +7,31 @@ class Detail extends CI_Controller
     {
         parent::__construct();
         if ($this->session->userdata('status') == '' || $this->session->userdata('status') == null) {
-            $this->load->view('auth/login');
+            redirect("auth");
         }
 
         $this->load->model("detail_model");
+    }
+
+    public function getStok()
+    {
+        $id     = $this->input->post("id", TRUE);
+        $cek    = $this->db
+                ->get_where("m_stok", ["id" => $id])
+                ->row();
+        if ($cek) {
+            echo json_encode([
+                'response_code'     => 200,
+                'response_message'  => 'Stok ditemukan',
+                'response_data'     => $cek
+            ]);
+        } else {
+            echo json_encode([
+                'response_code'     => 400,
+                'response_message'  => 'Stok tidak ditemukan',
+                'response_data'     => null
+            ]);
+        }
     }
 
     public function detail_ready($id = null, $jenis = null)
@@ -42,27 +63,6 @@ class Detail extends CI_Controller
         $this->load->view("component/sidebar", $data);
         $this->load->view("transaksi/detail_preorder/index", $data);
         $this->load->view("component/footer", $data);
-    }
-
-    public function getStok()
-    {
-        $id     = $this->input->post("id", TRUE);
-        $cek    = $this->db
-                ->get_where("m_stok", ["id" => $id])
-                ->row();
-        if ($cek) {
-            echo json_encode([
-                'response_code'     => 200,
-                'response_message'  => 'Stok ditemukan',
-                'response_data'     => $cek
-            ]);
-        } else {
-            echo json_encode([
-                'response_code'     => 400,
-                'response_message'  => 'Stok tidak ditemukan',
-                'response_data'     => null
-            ]);
-        }
     }
 
     public function add_keranjang_ready()

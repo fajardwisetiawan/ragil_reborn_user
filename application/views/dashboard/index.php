@@ -2,8 +2,10 @@
     <div class="row text-center m-3">
         <?php foreach ($produk as $p) { ?>
             <div class="card ml-3" style="width: 16rem;">
-                <img src="<?= 'http://localhost/ragil_reborn_admin/images/' . $p->gambar ?>" class="card-img-top">
-                <div class="card-body">
+                <div class="card-body p-1">
+                    <img src="<?= 'http://localhost/ragil_reborn_admin/images/' . $p->gambar ?>" class="card-img-top">
+                </div>
+                <div class="card-footer">
                     <h5 class="text-center mb-0"><?= $p->nama  ?></h5>
                     <small><?= substr($p->deskripsi, 0, 50) . "..." ?></small>
                     <br>

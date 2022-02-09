@@ -26,7 +26,7 @@
     <link rel="stylesheet" href="<?= base_url("assets/plugins/daterangepicker/daterangepicker.css") ?>">
     <!-- summernote -->
     <link rel="stylesheet" href="<?= base_url("assets/plugins/summernote/summernote-bs4.min.css") ?>">
-    
+
     <link rel="shortcut icon" type="image/x-icon" href="<?= base_url("assets/dist/img/logo.png") ?>">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
@@ -53,7 +53,7 @@
     <!-- Select2 -->
     <link rel="stylesheet" href="<?= base_url("assets/plugins/select2/css/select2.min.css") ?>">
     <link rel="stylesheet" href="<?= base_url("assets/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css") ?>">
-    
+
     <link rel="stylesheet" href="<?= base_url("assets/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css") ?>">
 </head>
 
@@ -65,17 +65,29 @@
 
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+                    <a class="nav-link text-white" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
                 </li>
             </ul>
 
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item dropdown">
+                    <a class="nav-link" data-toggle="dropdown" href="#">
+                        <i class="fas fa-shopping-cart text-white"></i>
+                        <span class="badge badge-danger navbar-badge" style="font-size: 8.5px;">
+                        <?php
+                            $CI = &get_instance();
+                            $CI->load->model('keranjang_model');
+                            $result = $CI->keranjang_model->getAll();
+                            echo $result != 0 ? count($result) : "0"
+                        ?>
+                        </span>
+                    </a>
+                </li>
+                <li class="nav-item dropdown">
                     <a class="nav-link text-white" data-toggle="dropdown" href="#">
                         <?= $this->session->userdata('nama') ?>
                     </a>
                     <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                        <div class="dropdown-divider"></div>
                         <a href="<?= base_url("auth/logout_proses") ?>" class="dropdown-item">
                             <i class="fas fa-power-off mr-2"></i> Keluar
                         </a>

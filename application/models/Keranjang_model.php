@@ -4,6 +4,7 @@ class Keranjang_model extends CI_Model
 {
     public function getAll()
     {
+        $id_user    = $this->session->userdata('id');
         return $this->db
             ->select([
                 "tr_keranjang.*",
@@ -12,7 +13,7 @@ class Keranjang_model extends CI_Model
             ])
             ->join("m_produk", "tr_keranjang.id_produk = m_produk.id", "LEFT")
             ->where('tr_keranjang.deleted_at IS NULL', null, false)
-            ->get("tr_keranjang")
+            ->get_where("tr_keranjang", ["tr_keranjang.id_user" => $id_user, "tr_keranjang.status" => "BELUM"])
             ->result();
     }
 
@@ -45,5 +46,45 @@ class Keranjang_model extends CI_Model
             ->where(["m_stok.id_produk" => $id_produk])
             ->where('m_stok.deleted_at IS NULL', null, false)
             ->get("m_stok")->result();
+    }
+
+    public function getKeranjang()
+    {
+        $id_user    = $this->session->userdata('id');
+
+        return $this->db
+            ->select([
+                "tr_keranjang.*",
+                "m_produk.nama AS nama_produk",
+                "m_produk.harga",
+            ])
+            ->join("m_produk", "tr_keranjang.id_produk = m_produk.id", "LEFT")
+            ->where('tr_keranjang.deleted_at IS NULL', null, false)
+            ->get_where("tr_keranjang", ["tr_keranjang.id_user" => $id_user, "tr_keranjang.status" => "BELUM"])
+            ->result();
+    }
+
+    public function getUser()
+    {
+        $id_user    = $this->session->userdata('id');
+
+        return $this->db
+            ->where('deleted_at IS NULL', null, false)
+            ->get_where("m_user", ["id" => $id_user])
+            ->row();
+    }
+
+    public function getEkspedisi()
+    {
+        return $this->db
+            ->where('deleted_at IS NULL', null, false)
+            ->get("m_ekspedisi")->result();
+    }
+
+    public function getBank()
+    {
+        return $this->db
+            ->where('deleted_at IS NULL', null, false)
+            ->get("m_bank")->result();
     }
 }
