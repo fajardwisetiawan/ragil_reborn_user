@@ -6,7 +6,7 @@ class Keranjang extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        if ($this->session->userdata('status') == '' || $this->session->userdata('status') == null) {
+        if ($this->session->userdata('status_user') == '' || $this->session->userdata('status_user') == null) {
             redirect("auth");
         }
 
@@ -68,7 +68,7 @@ class Keranjang extends CI_Controller
     public function save_keranjang_ready()
     {
         $id         = $this->input->post("id");
-        $id_user    = $this->session->userdata('id');
+        $id_user    = $this->session->userdata('id_user');
         $id_produk  = $this->input->post("id_produk");
         $id_stok    = $this->input->post("id_stok");
         $jumlah     = $this->input->post("jumlah");
@@ -86,7 +86,7 @@ class Keranjang extends CI_Controller
                 "catatan"       => $catatan,
                 "status"        => "BELUM",
                 "updated_at"    => date("Y-m-d H:i:s"),
-                "updated_by"    => $this->session->userdata('id'),
+                "updated_by"    => $this->session->userdata('id_user'),
             ];
 
             $update = $this->db->update("tr_keranjang", $dataUpdate, ["id" => $id]);
@@ -114,7 +114,7 @@ class Keranjang extends CI_Controller
                     "catatan"       => $catatan,
                     "status"        => "BELUM",
                     "updated_at"    => date("Y-m-d H:i:s"),
-                    "updated_by"    => $this->session->userdata('id'),
+                    "updated_by"    => $this->session->userdata('id_user'),
                 ];
 
                 $update = $this->db->update("tr_keranjang", $dataUpdate, ["id" => $id]);
@@ -156,7 +156,7 @@ class Keranjang extends CI_Controller
     public function save_keranjang_preorder()
     {
         $id         = $this->input->post("id");
-        $id_user    = $this->session->userdata('id');
+        $id_user    = $this->session->userdata('id_user');
         $id_produk  = $this->input->post("id_produk");
         $jumlah     = $this->input->post("jumlah");
         $catatan    = $this->input->post("catatan");
@@ -172,7 +172,7 @@ class Keranjang extends CI_Controller
                 "catatan"       => $catatan,
                 "status"        => "BELUM",
                 "updated_at"    => date("Y-m-d H:i:s"),
-                "updated_by"    => $this->session->userdata('id'),
+                "updated_by"    => $this->session->userdata('id_user'),
             ];
 
             $update = $this->db->update("tr_keranjang", $dataUpdate, ["id" => $id]);
@@ -199,7 +199,7 @@ class Keranjang extends CI_Controller
                     "catatan"       => $catatan,
                     "status"        => "BELUM",
                     "updated_at"    => date("Y-m-d H:i:s"),
-                    "updated_by"    => $this->session->userdata('id'),
+                    "updated_by"    => $this->session->userdata('id_user'),
                 ];
 
                 $update = $this->db->update("tr_keranjang", $dataUpdate, ["id" => $id]);
@@ -232,7 +232,7 @@ class Keranjang extends CI_Controller
         if ($cek) {
             $dataDelete = [
                 "deleted_at"    => date("Y-m-d H:i:s"),
-                "deleted_by"    => $this->session->userdata('id'),
+                "deleted_by"    => $this->session->userdata('id_user'),
             ];
             $delete = $this->db->update("tr_keranjang", $dataDelete, ["id" => $id]);
             if ($delete) {
@@ -274,7 +274,7 @@ class Keranjang extends CI_Controller
 
     public function save_checkout()
     {
-        $id_user        = $this->session->userdata('id');
+        $id_user        = $this->session->userdata('id_user');
         $nama           = $this->input->post("nama", TRUE);
         $alamat_lengkap = $this->input->post("alamat_lengkap", TRUE);
         $kode_pos       = $this->input->post("kode_pos", TRUE);
@@ -309,7 +309,7 @@ class Keranjang extends CI_Controller
                     "total"             => $total + $getEkspedisi->biaya_ongkir,
                     "status"            => "BELUM_LUNAS",
                     "created_at"        => date("Y-m-d H:i:s"),
-                    "created_by"        => $this->session->userdata('id'),
+                    "created_by"        => $this->session->userdata('id_user'),
                 ];
 
                 $insertTagihan  = $this->db->insert('tr_tagihan', $dataInsertTagihan);
@@ -354,7 +354,7 @@ class Keranjang extends CI_Controller
                                 "jenis_pemesanan"   => $k->jenis_barang,
                                 "status_pemesanan"  => "BELUM_BAYAR",
                                 "created_at"        => date("Y-m-d H:i:s"),
-                                "created_by"        => $this->session->userdata('id'),
+                                "created_by"        => $this->session->userdata('id_user'),
                             ];
 
                             $this->db->insert('tr_pemesanan', $dataInsertPemesanan);
@@ -363,7 +363,7 @@ class Keranjang extends CI_Controller
                         $dataUpdateKeranjang = [
                             "status"        => "PROSES",
                             "updated_at"    => date("Y-m-d H:i:s"),
-                            "updated_by"    => $this->session->userdata('id'),
+                            "updated_by"    => $this->session->userdata('id_user'),
                         ];
                         $updateKeranjang = $this->db->update("tr_keranjang", $dataUpdateKeranjang, ["id_user" => $id_user, "status"  => "BELUM"]);
                         if ($updateKeranjang) {

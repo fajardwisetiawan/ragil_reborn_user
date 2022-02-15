@@ -35,11 +35,11 @@
                 <form method="POST" action="<?= base_url("transaksi/keranjang/save_checkout") ?>" id="form_add" enctype='multipart/form-data'>
                     <div class="card-body">
                         <div class="bg-gray py-2 px-3 mt-4 mb-4">
-                            <?php 
-                                foreach ($keranjang as $k) { 
-                                    $total = 0;
-                                    $total += $k->jumlah * $k->harga;
-                                } 
+                            <?php
+                            $total = 0;
+                            foreach ($keranjang as $k) {
+                                $total += $k->harga * $k->jumlah;
+                            }
                             ?>
                             <h2 class="mb-0">
                                 Rp. <?= number_format($total, 2) ?>
@@ -60,7 +60,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <label for="recipient-name" class="control-label">Alamat Lengkap <span class="text-danger">*</span></label>
-                                    <textarea  class="form-control" name="alamat_lengkap" id="alamat_lengkap" placeholder="Alamat Lengkap" cols="3" rows="3" required><?= $user ? $user->alamat_lengkap : "" ?></textarea>
+                                    <textarea class="form-control" name="alamat_lengkap" id="alamat_lengkap" placeholder="Alamat Lengkap" cols="3" rows="3" required><?= $user ? $user->alamat_lengkap : "" ?></textarea>
                                 </div>
                             </div>
                         </div>
@@ -76,11 +76,11 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <label for="recipient-name" class="control-label">Telepon <span class="text-danger">*</span></label>
-                                    <input  value="<?= $user ? $user->telepon : "" ?>"type="text" class="form-control" name="telepon" id="telepon" placeholder="Telepon" required>
+                                    <input value="<?= $user ? $user->telepon : "" ?>" type="text" class="form-control" name="telepon" id="telepon" placeholder="Telepon" required>
                                 </div>
                                 <div class="col-md-6">
                                     <label for="recipient-name" class="control-label">Email <span class="text-danger">*</span></label>
-                                    <input  value="<?= $user ? $user->email : "" ?>"type="email" class="form-control" name="email" id="email" placeholder="Email" required>
+                                    <input value="<?= $user ? $user->email : "" ?>" type="email" class="form-control" name="email" id="email" placeholder="Email" required>
                                 </div>
                             </div>
                         </div>
@@ -121,7 +121,12 @@
 
 <script>
     $(document).ready(function() {
-        $('#table_data').DataTable({lengthChange: false, searching: true, paging: true, info: false});
+        $('#table_data').DataTable({
+            lengthChange: false,
+            searching: true,
+            paging: true,
+            info: false
+        });
     });
 
     $("#form_add").submit(e => {
@@ -137,14 +142,14 @@
                 // alert(JSON.stringify(result))
                 if (result.response_code == 200) {
                     Swal.fire({
-                        icon: 'success',
-                        title: 'Yeay !',
-                        text: `${result.response_message}`,
-                        confirmButtonText: 'Okesiap !',
-                    })
-                    .then((result) => {
-                        window.location.href = "<?= base_url("transaksi/tagihan") ?>";
-                    })
+                            icon: 'success',
+                            title: 'Yeay !',
+                            text: `${result.response_message}`,
+                            confirmButtonText: 'Okesiap !',
+                        })
+                        .then((result) => {
+                            window.location.href = "<?= base_url("transaksi/tagihan") ?>";
+                        })
 
                 } else {
                     Swal.fire({

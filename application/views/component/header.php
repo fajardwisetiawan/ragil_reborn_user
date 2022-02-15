@@ -71,7 +71,7 @@
 
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item dropdown">
-                    <a class="nav-link" data-toggle="dropdown" href="#">
+                    <a class="nav-link" href="<?= base_url("transaksi/keranjang")?>">
                         <i class="fas fa-shopping-cart text-white"></i>
                         <span class="badge badge-danger navbar-badge" style="font-size: 8.5px;">
                         <?php
@@ -85,7 +85,7 @@
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link text-white" data-toggle="dropdown" href="#">
-                        <?= $this->session->userdata('nama') ?>
+                        <?= $this->session->userdata('nama_user') ?>
                     </a>
                     <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                         <a href="<?= base_url("auth/logout_proses") ?>" class="dropdown-item">

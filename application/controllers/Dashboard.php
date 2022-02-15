@@ -6,7 +6,7 @@ class Dashboard extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        if ($this->session->userdata('status') == '' || $this->session->userdata('status') == null) {
+        if ($this->session->userdata('status_user') == '' || $this->session->userdata('status_user') == null) {
             redirect("auth");
         }
 
@@ -20,6 +20,8 @@ class Dashboard extends CI_Controller
             "title"     => strtoupper(str_replace("_", " ", $this->router->fetch_class())),
             "produk"    => $this->dashboard_model->getAll(),
         ];
+
+        // die(json_encode($data));
 
         $this->load->view("component/header", $data);
         $this->load->view("component/sidebar", $data);

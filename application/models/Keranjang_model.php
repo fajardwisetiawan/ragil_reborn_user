@@ -4,7 +4,7 @@ class Keranjang_model extends CI_Model
 {
     public function getAll()
     {
-        $id_user    = $this->session->userdata('id');
+        $id_user    = $this->session->userdata('id_user');
         return $this->db
             ->select([
                 "tr_keranjang.*",
@@ -13,7 +13,10 @@ class Keranjang_model extends CI_Model
             ])
             ->join("m_produk", "tr_keranjang.id_produk = m_produk.id", "LEFT")
             ->where('tr_keranjang.deleted_at IS NULL', null, false)
-            ->get_where("tr_keranjang", ["tr_keranjang.id_user" => $id_user, "tr_keranjang.status" => "BELUM"])
+            ->get_where("tr_keranjang", [
+                "tr_keranjang.id_user" => $id_user,
+                "tr_keranjang.status" => "BELUM",
+            ])
             ->result();
     }
 
@@ -50,7 +53,7 @@ class Keranjang_model extends CI_Model
 
     public function getKeranjang()
     {
-        $id_user    = $this->session->userdata('id');
+        $id_user    = $this->session->userdata('id_user');
 
         return $this->db
             ->select([
@@ -66,7 +69,7 @@ class Keranjang_model extends CI_Model
 
     public function getUser()
     {
-        $id_user    = $this->session->userdata('id');
+        $id_user    = $this->session->userdata('id_user');
 
         return $this->db
             ->where('deleted_at IS NULL', null, false)

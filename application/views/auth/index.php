@@ -13,7 +13,7 @@
     <!-- Select2 -->
     <link rel="stylesheet" href="<?= base_url("assets/plugins/select2/css/select2.min.css") ?>">
     <link rel="stylesheet" href="<?= base_url("assets/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css") ?>">
-    <link rel="shortcut icon" type="image/x-icon" href="<?= base_url("assets/intanmas/img/simpus.png") ?>">
+    <link rel="shortcut icon" type="image/x-icon" href="<?= base_url("assets/dist/img/logo.png") ?>">
 </head>
 
 
@@ -21,7 +21,7 @@
     <div class="login-box">
         <div class="card card-outline card-primary">
             <div class="card-header text-center">
-                <h3>ADMINISTRATOR</h3>
+                <h1><b>LOGIN</b></h1>
             </div>
             <div class="card-body">
                 <?php if ($this->session->flashdata("gagal")) : ?>
@@ -66,6 +66,9 @@
                         </div>
                     </div>
                 </form>
+                <p class="mt-3">
+                    <a href="<?= base_url('auth/registrasi') ?>" class="text-center">Daftar akun baru</a>
+                </p>
             </div>
         </div>
     </div>

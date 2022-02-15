@@ -6,7 +6,7 @@ class Kategori extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        if ($this->session->userdata('status') == '' || $this->session->userdata('status') == null) {
+        if ($this->session->userdata('status_user') == '' || $this->session->userdata('status_user') == null) {
             redirect("auth");
         }
 

@@ -4,7 +4,7 @@ class Tagihan_model extends CI_Model
 {
     public function getAll()
     {
-        $id_user    = $this->session->userdata('id');
+        $id_user    = $this->session->userdata('id_user');
         return $this->db
             ->order_by("id", "DESC")
             ->limit(30)
@@ -15,7 +15,7 @@ class Tagihan_model extends CI_Model
 
     public function getPemesanan($id_tagihan)
     {
-        $id_user    = $this->session->userdata('id');
+        $id_user    = $this->session->userdata('id_user');
         return $this->db
             ->select([
                 "tr_pemesanan.*",

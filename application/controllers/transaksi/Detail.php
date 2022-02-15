@@ -6,7 +6,7 @@ class Detail extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        if ($this->session->userdata('status') == '' || $this->session->userdata('status') == null) {
+        if ($this->session->userdata('status_user') == '' || $this->session->userdata('status_user') == null) {
             redirect("auth");
         }
 
@@ -67,7 +67,7 @@ class Detail extends CI_Controller
 
     public function add_keranjang_ready()
     {
-        $id_user    = $this->session->userdata('id');
+        $id_user    = $this->session->userdata('id_user');
         $id_produk  = $this->input->post("id_produk");
         $id_stok    = $this->input->post("id_stok");
         $jumlah     = $this->input->post("jumlah");
@@ -75,18 +75,24 @@ class Detail extends CI_Controller
 
         $cek = $this->db
             ->where('deleted_at IS NULL', null, false)
-            ->get_where("tr_keranjang", ["id_user" => $id_user, "id_produk" => $id_produk, "id_stok" => $id_stok])
+            ->get_where("tr_keranjang", [
+                "id_user"   => $id_user,
+                "id_produk" => $id_produk,
+                "id_stok"   => $id_stok,
+                "status"    => "BELUM",
+            ])
             ->row();
         if (!$cek) {
             $dataInsert = [
-                "id_user"       => $this->session->userdata('id'),
+                "id_user"       => $this->session->userdata('id_user'),
                 "id_produk"     => $id_produk,
                 "id_stok"       => $id_stok,
                 "jenis_barang"  => "READY",
                 "jumlah"        => $jumlah,
+                "status"        => "BELUM",
                 "catatan"       => $catatan,
                 "created_at"    => date("Y-m-d H:i:s"),
-                "created_by"    => $this->session->userdata('id'),
+                "created_by"    => $this->session->userdata('id_user'),
             ];
 
             $insert = $this->db->insert('tr_keranjang', $dataInsert);
@@ -112,24 +118,29 @@ class Detail extends CI_Controller
 
     public function add_keranjang_preorder()
     {
-        $id_user    = $this->session->userdata('id');
+        $id_user    = $this->session->userdata('id_user');
         $id_produk  = $this->input->post("id_produk");
         $jumlah     = $this->input->post("jumlah");
         $catatan    = $this->input->post("catatan");
 
         $cek = $this->db
             ->where('deleted_at IS NULL', null, false)
-            ->get_where("tr_keranjang", ["id_user" => $id_user, "id_produk" => $id_produk])
+            ->get_where("tr_keranjang", [
+                "id_user"   => $id_user,
+                "id_produk" => $id_produk,
+                "status"    => "BELUM",
+            ])
             ->row();
         if (!$cek) {
             $dataInsert = [
-                "id_user"       => $this->session->userdata('id'),
+                "id_user"       => $this->session->userdata('id_user'),
                 "id_produk"     => $id_produk,
                 "jenis_barang"  => "PREORDER",
                 "jumlah"        => $jumlah,
+                "status"        => "BELUM",
                 "catatan"       => $catatan,
                 "created_at"    => date("Y-m-d H:i:s"),
-                "created_by"    => $this->session->userdata('id'),
+                "created_by"    => $this->session->userdata('id_user'),
             ];
 
             $insert = $this->db->insert('tr_keranjang', $dataInsert);
